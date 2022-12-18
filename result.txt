@@ -1,0 +1,9 @@
+
+Number Of Integers : 100		 Time Taken For Execuation : 0.000000
+Number Of Integers : 1000		 Time Taken For Execuation : 0.001000
+Number Of Integers : 10000		 Time Taken For Execuation : 0.136000
+Number Of Integers : 100000		 Time Taken For Execuation : 23.741000
+Number Of Integers : 200000		 Time Taken For Execuation : 97.244000
+Number Of Integers : 500000		 Time Taken For Execuation : 646.919000
+Number Of Integers : 800000		 Time Taken For Execuation : 1646.121000
+Number Of Integers : 1000000	 Time Taken For Execuation : 2486.521000

@@ -3,69 +3,52 @@
 #include <string.h>
 #include <time.h>
 
-#define SIZE 1000000
-char num[SIZE][8];
-int comp[SIZE];
 
-void sort()
+
+void sort(int val, int number[])
 {
 	int i, j;
-	FILE *fp4 = fopen("sorted.txt", "a+");
 	int temp;
-	printf("Progress:\e[s");
-	for (i = 0; i < SIZE - 1; i++)
+	for (i = 0; i < val - 1; i++)
 	{
-		float pct = ((float)i / SIZE) * 100;
-		printf("%2d (%3f%%)\e[u", i, pct);
-		fflush(stdout);
-		for (j = 0; j < SIZE - i - 1; j++)
+		for (j = 0; j < val - i - 1; j++)
 		{
-			if (comp[j + 1] < comp[j])
+			if (number[j + 1] < number[j])
 			{
-				temp = comp[j];
-				comp[j] = comp[j + 1];
-				comp[j + 1] = temp;
+				temp = number[j];
+				number[j] = number[j + 1];
+				number[j + 1] = temp;
 			}
 		}
 	}
-
-	for (int i = 0; i < SIZE; i++)
-		fprintf(fp4, "%d\n", comp[i]);
-
-	printf("\n The file is sorted successfully and saved as sorted.txt.\n");
-	fclose(fp4);
 }
 
-int main()
+void random_gen(int val, int number[])
 {
-	FILE *fp;
-	int count = 0;
-	char ch;
-
-	fp = fopen("data.txt", "r");
-
-	if (fp == NULL)
+	for (int i = 0; i < val; i++)
 	{
-		printf("\n Cannot open the file \n");
-		exit(0);
+		number[i] = rand();
 	}
-	else
-		printf("File opened sucessfully..\n");
+}
 
-	for (int i = 0; i < SIZE; i++)
-	{
-		fscanf(fp, "%s ", num[i]);
-	}
-	for (int i = 0; i < SIZE; i++)
-	{
-		comp[i] = atoi(num[i]);
-	}
+int main(int argc, char **argv)
+{
+	int val = atoi(argv[1]);
+	
+	int* number = (int*)malloc(val*sizeof(int));
+	
+	random_gen(val, number);
 
 	clock_t t;
-	t = clock();
-	sort();
-	t = clock() - t;
-	double time_taken = ((double)t) / CLOCKS_PER_SEC; // in seconds
 
-	printf("Sorting took %f seconds to execute \n", time_taken);
+	t = clock();
+	sort(val, number);
+	t = clock() - t;
+
+	double time_taken = ((double)t) / CLOCKS_PER_SEC;
+
+	printf("%f\n", time_taken);
+
+	FILE *fp = fopen("result.txt","a+");
+	fprintf(fp,"Number Of Integers : %d\t\t Time Taken For Execuation : %f\n",val,time_taken);
 }
